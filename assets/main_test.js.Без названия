@@ -1,0 +1,2016 @@
+jQuery(document).ready(function($) {
+
+  //////////////////////////////////////////
+  // Slider
+  //////////////////////////////////////////
+
+  $('.slides-3').slick({
+    infinite: true,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    dots: true,
+    draggable: false,
+    nextArrow: '<a type="button" href="" class="next-slide"></a>',
+    prevArrow: '<a type="button" href="" class="prev-slide"></a>',
+    responsive: [
+    {
+      breakpoint: 769,
+      settings: {
+        slidesToShow: 2,
+
+        slidesToScroll: 2
+      }
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 1,
+        arrows: false,
+        slidesToScroll: 1
+      }
+    }
+    ]
+  });
+
+  $('.timeline-content').slick({
+    infinite: true,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    initialSlide: 3,
+    dots: true,
+    draggable: false,
+    nextArrow: '<a type="button" href="" class="next-slide"></a>',
+    prevArrow: '<a type="button" href="" class="prev-slide"></a>',
+    responsive: [
+    {
+      breakpoint: 769,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2
+      }
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 1,
+        arrows: false,
+        slidesToScroll: 1
+      }
+    }
+    ]
+  });
+
+  $('.timeline-block, .single-test').matchHeight();
+
+  $('.slides-3, .timeline-content').on('setPosition', function(){
+    $.fn.matchHeight._update();
+  });
+
+  //////////////////////////////////////////
+  // Form styling
+  //////////////////////////////////////////
+
+  function setupLabel() {
+    if ($('.checkbox input').length) {
+      $('.checkbox').each(function(){
+        $(this).removeClass('selected');
+      });
+      $('.checkbox input:checked').each(function(){
+        $(this).parent('.checkbox').addClass('selected');
+      });
+    }
+  }
+  setupLabel();
+
+  $('body').on('click', '.checkbox label', function(e){
+    var $this = $(this);
+    var $parent = $this.parent();
+    $parent.toggleClass('selected');
+  });
+
+  //////////////////////////////////////////
+  // Init Select2
+  //////////////////////////////////////////
+
+  // $('select:not(.no-ui)').select2({
+    // minimumResultsForSearch: -1
+  // });
+
+  // $('.country-selector-button').on('click', function(e){
+    // e.preventDefault();
+    // $this = $(this);
+    // $this.toggleClass('active');
+    // $('.footer-selector').slideToggle(400);
+    // $('html, body').animate({
+      // scrollTop: $('.footer-selector').offset().top - 20
+    // }, 700);
+  // });
+
+  // $('a.close-selector').on('click', function(e){
+    // e.preventDefault();
+    // $this = $(this);
+    // $('.footer-selector').slideToggle(500);
+    // $('.country-selector-button').removeClass('active');
+  // });
+
+  //////////////////////////////////////////
+  // Top 3
+  //////////////////////////////////////////
+
+  $('.bar').each(function() {
+    var progress = $(this).data('progress');
+    var $this = $(this);
+
+    $({Counter: progress == 0 ? 0 : progress}).animate({Counter: progress}, {
+      duration: 500,
+      easing: 'swing',
+      step: function () {
+        $this.parents('.progress').find('.stats-bar-title').text(this.Counter);
+      }
+    });
+
+    $(this).parents('.progress').animate({
+      height: progress / 100 * 120
+    }, 800);
+  });
+
+  // bubbles
+
+  var data2013 = [
+    {
+      'title': 'Kaspersky Lab',
+      'x': 79,
+      'y': 77,
+      'r': 41,
+      'color': '#278670',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Bitdefender',
+      'x': 54,
+      'y': 65,
+      'r': 27,
+      'color': '#f25b61',
+      'bubblePos': ''
+    },
+    {
+      'title': 'ESET',
+      'x': 53,
+      'y': 32,
+      'r': 12,
+      'color': '#238881',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Symantec',
+      'x': 60,
+      'y': 63,
+      'r': 18,
+      'color': '#FDC518',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'Avira',
+      'x': 37,
+      'y': 41,
+      'r': 12,
+      'color': '#F61801',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Avast',
+      'x': 49,
+      'y': 27,
+      'r': 10,
+      'color': '#DBA401',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Trend Micro',
+      'x': 64,
+      'y': 22,
+      'r': 6,
+      'color': '#E6191E',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Sophos',
+      'x': 40,
+      'y': 38,
+      'r': 9,
+      'color': '#2CA2DF',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'Intel Security (McAfee)',
+      'x': 65,
+      'y': 15,
+      'r': 6,
+      'color': '#CC1217',
+      'bubblePos': ''
+    },
+    {
+      'title': 'AVG',
+      'x': 53,
+      'y': 8,
+      'r': 4,
+      'color': '#8E8E8E',
+      'bubblePos': ''
+    },
+    {
+      'title': 'G Data',
+      'x': 39,
+      'y': 23,
+      'r': 7,
+      'color': '#C51218',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Ahnlab',
+      'x': 29,
+      'y': 10,
+      'r': 2,
+      'color': '#136CC0',
+      'bubblePos': ''
+    },
+    {
+      'title': 'BullGuard',
+      'x': 28,
+      'y': 32,
+      'r': 8,
+      'color': '#E6191E',
+      'bubblePos': ''
+    },
+    {
+      'title': 'F-Secure',
+      'x': 56,
+      'y': 39,
+      'r': 14,
+      'color': '#166CB9',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Panda Security',
+      'x': 41,
+      'y': 12,
+      'r': 4,
+      'color': '#176AB6',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Microsoft',
+      'x': 48,
+      'y': 15,
+      'r': 5,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Qihoo 360',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#7ebe3c',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Tencent',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'ThreatTrack (VIPRE)',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Kingsoft',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Quick Heal',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#92d050',
+      'bubblePos': ''
+    }
+  ];
+
+  var data2014 = [
+    {
+      'title': 'Kaspersky Lab',
+      'x': 93,
+      'y': 71,
+      'r': 51,
+      'color': '#278670',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Bitdefender',
+      'x': 75,
+      'y': 63,
+      'r': 35,
+      'color': '#f25b61',
+      'bubblePos': ''
+    },
+    {
+      'title': 'ESET',
+      'x': 61,
+      'y': 44,
+      'r': 17,
+      'color': '#238881',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'Symantec',
+      'x': 68,
+      'y': 35,
+      'r': 9,
+      'color': '#FDC518',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Avira',
+      'x': 58,
+      'y': 47,
+      'r': 20,
+      'color': '#F61801',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Avast',
+      'x': 62,
+      'y': 8,
+      'r': 4,
+      'color': '#DBA401',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Trend Micro',
+      'x': 76,
+      'y': 38,
+      'r': 18,
+      'color': '#E6191E',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'Sophos',
+      'x': 47,
+      'y': 23,
+      'r': 7,
+      'color': '#2CA2DF',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'Intel Security (McAfee)',
+      'x': 74,
+      'y': 20,
+      'r': 9,
+      'color': '#CC1217',
+      'bubblePos': ''
+    },
+    {
+      'title': 'AVG',
+      'x': 68,
+      'y': 12,
+      'r': 8,
+      'color': '#8E8E8E',
+      'bubblePos': ''
+    },
+    {
+      'title': 'G Data',
+      'x': 44,
+      'y': 30,
+      'r': 10,
+      'color': '#C51218',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'Ahnlab',
+      'x': 36,
+      'y': 17,
+      'r': 6,
+      'color': '#136CC0',
+      'bubblePos': ''
+    },
+    {
+      'title': 'BullGuard',
+      'x': 36,
+      'y': 31,
+      'r': 11,
+      'color': '#E6191E',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'F-Secure',
+      'x': 64,
+      'y': 14,
+      'r': 7,
+      'color': '#166CB9',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Panda Security',
+      'x': 43,
+      'y': 23,
+      'r': 10,
+      'color': '#176AB6',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Microsoft',
+      'x': 55,
+      'y': 11,
+      'r': 5,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Qihoo 360',
+      'x': 46,
+      'y': 43,
+      'r': 18,
+      'color': '#7ebe3c',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Tencent',
+      'x': 41,
+      'y': 17,
+      'r': 7,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'VIPRE',
+      'x': 33,
+      'y': 6,
+      'r': 2,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Kingsoft',
+      'x': 35,
+      'y': 34,
+      'r': 11,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Quick Heal',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#92d050',
+      'bubblePos': ''
+    }
+  ];
+
+  var data2015 = [
+    {
+      'title': 'Kaspersky Lab',
+      'x': 94,
+      'y': 82,
+      'r': 60,
+      'color': '#278670',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Bitdefender',
+      'x': 62,
+      'y': 63,
+      'r': 32,
+      'color': '#f25b61',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'ESET',
+      'x': 57,
+      'y': 56,
+      'r': 20,
+      'color': '#238881',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Symantec',
+      'x': 60,
+      'y': 53,
+      'r': 16,
+      'color': '#FDC518',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'Avira',
+      'x': 47,
+      'y': 55,
+      'r': 21,
+      'color': '#F61801',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Avast',
+      'x': 52,
+      'y': 31,
+      'r': 13,
+      'color': '#DBA401',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'Trend Micro',
+      'x': 66,
+      'y': 24,
+      'r': 11,
+      'color': '#E6191E',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'Sophos',
+      'x': 41,
+      'y': 34,
+      'r': 11,
+      'color': '#2CA2DF',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Intel Security (McAfee)',
+      'x': 62,
+      'y': 18,
+      'r': 5,
+      'color': '#CC1217',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'AVG',
+      'x': 49,
+      'y': 20,
+      'r': 9,
+      'color': '#8E8E8E',
+      'bubblePos': ''
+    },
+    {
+      'title': 'G Data',
+      'x': 42,
+      'y': 21,
+      'r': 8,
+      'color': '#C51218',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Ahnlab',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#136CC0',
+      'bubblePos': ''
+    },
+    {
+      'title': 'BullGuard',
+      'x': 35.2,
+      'y': 26,
+      'r': 9,
+      'color': '#E6191E',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'F-Secure',
+      'x': 47,
+      'y': 15,
+      'r': 5,
+      'color': '#166CB9',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Panda Security',
+      'x': 34,
+      'y': 18,
+      'r': 6,
+      'color': '#176AB6',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Microsoft',
+      'x': 45,
+      'y': 9,
+      'r': 3,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Qihoo 360',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#7ebe3c',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Tencent',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'VIPRE',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Kingsoft',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Quick Heal',
+      'x': 35,
+      'y': 26,
+      'r': 9,
+      'color': '#92d050',
+      'bubblePos': ''
+    }
+  ];
+
+  var data2016 = [
+    {
+      'title': 'Kaspersky Lab',
+      'x': 78,
+      'y': 90,
+      'r': 55,
+      'color': '#278670',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Bitdefender',
+      'x': 56,
+      'y': 64,
+      'r': 31,
+      'color': '#f25b61',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'ESET',
+      'x': 49,
+      'y': 55,
+      'r': 20,
+      'color': '#238881',
+      'bubblePos': 'bubble-title-right bubble-title-small'
+    },
+    {
+      'title': 'Symantec',
+      'x': 54,
+      'y': 67,
+      'r': 20,
+      'color': '#FDC518',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Avira',
+      'x': 41,
+      'y': 54,
+      'r': 17,
+      'color': '#F61801',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'Avast',
+      'x': 45,
+      'y': 33,
+      'r': 11,
+      'color': '#DBA401',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Trend Micro',
+      'x': 60,
+      'y': 30,
+      'r': 13,
+      'color': '#E6191E',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'Sophos',
+      'x': 36,
+      'y': 53,
+      'r': 13,
+      'color': '#2CA2DF',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Intel Security (McAfee)',
+      'x': 53,
+      'y': 13,
+      'r': 7,
+      'color': '#CC1217',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'AVG',
+      'x': 54,
+      'y': 30,
+      'r': 14,
+      'color': '#8E8E8E',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'G Data',
+      'x': 38,
+      'y': 29,
+      'r': 11,
+      'color': '#C51218',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Ahnlab',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#136CC0',
+      'bubblePos': ''
+    },
+    {
+      'title': 'BullGuard',
+      'x': 27,
+      'y': 33,
+      'r': 9,
+      'color': '#E6191E',
+      'bubblePos': 'bubble-title-small'
+    },
+    {
+      'title': 'F-Secure',
+      'x': 32,
+      'y': 16,
+      'r': 5,
+      'color': '#166CB9',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Panda Security',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#176AB6',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Microsoft',
+      'x': 51,
+      'y': 8,
+      'r': 4,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Qihoo 360',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#7ebe3c',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Tencent',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'VIPRE',
+      'x': 27,
+      'y': 59,
+      'r': 10,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Kingsoft',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Quick Heal',
+      'x': 32,
+      'y': 34,
+      'r': 10,
+      'color': '#92d050',
+      'bubblePos': 'bubble-title-right'
+    }
+  ];
+
+  var data2017 = [
+    {
+      'title': 'Kaspersky Lab',
+      'x': 86,
+      'y': 91,
+      'r': 72,
+      'color': '#278670',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Bitdefender',
+      'x': 61,
+      'y': 72,
+      'r': 36,
+      'color': '#f25b61',
+      'bubblePos': 'bubble-title-left'
+    },
+    {
+      'title': 'ESET',
+      'x': 60,
+      'y': 52,
+      'r': 18,
+      'color': '#238881',
+      'bubblePos': 'bubble-title-right bubble-title-small'
+    },
+    {
+      'title': 'Symantec',
+      'x': 66,
+      'y': 61,
+      'r': 27,
+      'color': '#FDC518',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'Avira',
+      'x': 32,
+      'y': 38,
+      'r': 7,
+      'color': '#F61801',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'Avast',
+      'x': 50,
+      'y': 38,
+      'r': 14,
+      'color': '#DBA401',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Trend Micro',
+      'x': 68,
+      'y': 47,
+      'r': 28,
+      'color': '#E6191E',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'Sophos',
+      'x': 30,
+      'y': 43,
+      'r': 8,
+      'color': '#2CA2DF',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Intel Security (McAfee)',
+      'x': 45,
+      'y': 24,
+      'r': 9,
+      'color': '#CC1217',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'AVG',
+      'x': 42,
+      'y': 33,
+      'r': 9,
+      'color': '#8E8E8E',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'G Data',
+      'x': 38,
+      'y': 29,
+      'r': 11,
+      'color': '#C51218',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Ahnlab',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#136CC0',
+      'bubblePos': ''
+    },
+    {
+      'title': 'BullGuard',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#E6191E',
+      'bubblePos': 'bubble-title-small'
+    },
+    {
+      'title': 'F-Secure',
+      'x': 37,
+      'y': 11,
+      'r': 4,
+      'color': '#166CB9',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Panda Security',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#176AB6',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Microsoft',
+      'x': 38,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Qihoo 360',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#7ebe3c',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Tencent',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'VIPRE',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Kingsoft',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Quick Heal',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#92d050',
+      'bubblePos': 'bubble-title-right'
+    }
+  ];
+
+  var data2013_responsive = [
+    {
+      'title': 'Kaspersky Lab',
+      'x': 79,
+      'y': 77,
+      'r': 21,
+      'color': '#278670',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Bitdefender',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#f25b61',
+      'bubblePos': ''
+    },
+    {
+      'title': 'ESET',
+      'x': 53,
+      'y': 32,
+      'r': 6,
+      'color': '#238881',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Symantec',
+      'x': 60,
+      'y': 63,
+      'r': 9,
+      'color': '#FDC518',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Avira',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#F61801',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Avast',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#DBA401',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Trend Micro',
+      'x': 64,
+      'y': 22,
+      'r': 6,
+      'color': '#E6191E',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Sophos',
+      'x': 40,
+      'y': 38,
+      'r': 9,
+      'color': '#2CA2DF',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Intel Security (McAfee)',
+      'x': 65,
+      'y': 15,
+      'r': 6,
+      'color': '#CC1217',
+      'bubblePos': ''
+    },
+    {
+      'title': 'AVG',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#8E8E8E',
+      'bubblePos': ''
+    },
+    {
+      'title': 'G Data',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#C51218',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Ahnlab',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#136CC0',
+      'bubblePos': ''
+    },
+    {
+      'title': 'BullGuard',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#E6191E',
+      'bubblePos': ''
+    },
+    {
+      'title': 'F-Secure',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#166CB9',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Panda Security',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#176AB6',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Microsoft',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Qihoo 360',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#7ebe3c',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Tencent',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'VIPRE',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Kingsoft',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Quick Heal',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#92d050',
+      'bubblePos': ''
+    }
+  ];
+
+    var data2014_responsive = [
+    {
+      'title': 'Kaspersky Lab',
+      'x': 93,
+      'y': 71,
+      'r': 25,
+      'color': '#278670',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Bitdefender',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#f25b61',
+      'bubblePos': ''
+    },
+    {
+      'title': 'ESET',
+      'x': 61,
+      'y': 44,
+      'r': 8,
+      'color': '#238881',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Symantec',
+      'x': 68,
+      'y': 35,
+      'r': 4,
+      'color': '#FDC518',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Avira',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#F61801',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Avast',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#DBA401',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Trend Micro',
+      'x': 76,
+      'y': 38,
+      'r': 18,
+      'color': '#E6191E',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Sophos',
+      'x': 47,
+      'y': 23,
+      'r': 7,
+      'color': '#2CA2DF',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Intel Security (McAfee)',
+      'x': 74,
+      'y': 20,
+      'r': 9,
+      'color': '#CC1217',
+      'bubblePos': ''
+    },
+    {
+      'title': 'AVG',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#8E8E8E',
+      'bubblePos': ''
+    },
+    {
+      'title': 'G Data',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#C51218',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Ahnlab',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#136CC0',
+      'bubblePos': ''
+    },
+    {
+      'title': 'BullGuard',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#E6191E',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'F-Secure',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#166CB9',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Panda Security',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#176AB6',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Microsoft',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Qihoo 360',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#7ebe3c',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Tencent',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'VIPRE',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Kingsoft',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Quick Heal',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#92d050',
+      'bubblePos': ''
+    }
+  ];
+
+  var data2015_responsive = [
+    {
+      'title': 'Kaspersky Lab',
+      'x': 94,
+      'y': 82,
+      'r': 30,
+      'color': '#278670',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Bitdefender',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#f25b61',
+      'bubblePos': ''
+    },
+    {
+      'title': 'ESET',
+      'x': 57,
+      'y': 56,
+      'r': 10,
+      'color': '#238881',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Symantec',
+      'x': 60,
+      'y': 53,
+      'r': 8,
+      'color': '#FDC518',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Avira',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#F61801',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Avast',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#DBA401',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'Trend Micro',
+      'x': 66,
+      'y': 24,
+      'r': 11,
+      'color': '#E6191E',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Sophos',
+      'x': 41,
+      'y': 34,
+      'r': 11,
+      'color': '#2CA2DF',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Intel Security (McAfee)',
+      'x': 62,
+      'y': 18,
+      'r': 5,
+      'color': '#CC1217',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'AVG',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#8E8E8E',
+      'bubblePos': ''
+    },
+    {
+      'title': 'G Data',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#C51218',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Ahnlab',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#136CC0',
+      'bubblePos': ''
+    },
+    {
+      'title': 'BullGuard',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#E6191E',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'F-Secure',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#166CB9',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Panda Security',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#176AB6',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Microsoft',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Qihoo 360',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#7ebe3c',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Tencent',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'VIPRE',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Kingsoft',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Quick Heal',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#92d050',
+      'bubblePos': ''
+    }
+  ];
+
+  var data2016_responsive = [
+    {
+      'title': 'Kaspersky Lab',
+      'x': 78,
+      'y': 90,
+      'r': 55,
+      'color': '#278670',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Bitdefender',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#f25b61',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'ESET',
+      'x': 49,
+      'y': 27,
+      'r': 20,
+      'color': '#238881',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Symantec',
+      'x': 54,
+      'y': 67,
+      'r': 20,
+      'color': '#FDC518',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Avira',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#F61801',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Avast',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#DBA401',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'Trend Micro',
+      'x': 60,
+      'y': 30,
+      'r': 13,
+      'color': '#E6191E',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'Sophos',
+      'x': 36,
+      'y': 53,
+      'r': 13,
+      'color': '#2CA2DF',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Intel Security (McAfee)',
+      'x': 53,
+      'y': 13,
+      'r': 7,
+      'color': '#CC1217',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'AVG',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#8E8E8E',
+      'bubblePos': ''
+    },
+    {
+      'title': 'G Data',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#C51218',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Ahnlab',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#136CC0',
+      'bubblePos': ''
+    },
+    {
+      'title': 'BullGuard',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#E6191E',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'F-Secure',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#166CB9',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Panda Security',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#176AB6',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Microsoft',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Qihoo 360',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#7ebe3c',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Tencent',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'VIPRE',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Kingsoft',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Quick Heal',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#92d050',
+      'bubblePos': ''
+    }
+  ];
+
+  var data2017_responsive = [
+    {
+      'title': 'Kaspersky Lab',
+      'x': 86,
+      'y': 91,
+      'r': 72,
+      'color': '#278670',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Bitdefender',
+      'x': 61,
+      'y': 72,
+      'r': 36,
+      'color': '#f25b61',
+      'bubblePos': 'bubble-title-left'
+    },
+    {
+      'title': 'ESET',
+      'x': 60,
+      'y': 52,
+      'r': 18,
+      'color': '#238881',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Symantec',
+      'x': 66,
+      'y': 61,
+      'r': 27,
+      'color': '#FDC518',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'Avira',
+      'x': 32,
+      'y': 38,
+      'r': 7,
+      'color': '#F61801',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Avast',
+      'x': 50,
+      'y': 38,
+      'r': 14,
+      'color': '#DBA401',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'Trend Micro',
+      'x': 68,
+      'y': 47,
+      'r': 28,
+      'color': '#E6191E',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'Sophos',
+      'x': 30,
+      'y': 43,
+      'r': 8,
+      'color': '#2CA2DF',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Intel Security (McAfee)',
+      'x': 45,
+      'y': 24,
+      'r': 9,
+      'color': '#CC1217',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'AVG',
+      'x': 42,
+      'y': 33,
+      'r': 9,
+      'color': '#8E8E8E',
+      'bubblePos': ''
+    },
+    {
+      'title': 'G Data',
+      'x': 38,
+      'y': 29,
+      'r': 11,
+      'color': '#C51218',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Ahnlab',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#136CC0',
+      'bubblePos': ''
+    },
+    {
+      'title': 'BullGuard',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#E6191E',
+      'bubblePos': 'bubble-title-right'
+    },
+    {
+      'title': 'F-Secure',
+      'x': 37,
+      'y': 11,
+      'r': 4,
+      'color': '#166CB9',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Panda Security',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#176AB6',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Microsoft',
+      'x': 38,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Qihoo 360',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#7ebe3c',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Tencent',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'VIPRE',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Kingsoft',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#37BEFE',
+      'bubblePos': ''
+    },
+    {
+      'title': 'Quick Heal',
+      'x': 0,
+      'y': 0,
+      'r': 0,
+      'color': '#92d050',
+      'bubblePos': ''
+    }
+  ];
+
+  var data = [];
+      data[0] = data2013;
+      data[1] = data2014;
+      data[2] = data2015;
+      data[3] = data2016;
+      data[4] = data2017;
+
+  var responsive_data = [];
+      responsive_data[0] = data2013_responsive;
+      responsive_data[1] = data2014_responsive;
+      responsive_data[2] = data2015_responsive;
+      responsive_data[3] = data2016_responsive;
+      responsive_data[4] = data2017_responsive;
+
+  var $chart = $('.chart-inner');
+  var radius = 16;
+  var chartWidth = $chart.width() + ($chart.width() / 100 * 31.25);
+  var chartHeight = $chart.height();
+  var source = data;
+  var style = function(idx, item) {
+
+    return {
+      'right': -((((item.r / 100) * radius) * radius - chartWidth) * (1 - item.x / 100)) - 20,
+      'top': chartHeight * (1 - parseInt(item.y) / 100) - (((parseInt(item.r) / 100) * radius) * radius/2),
+      'width': ((parseInt(item.r) / 100) * radius) * radius,
+      'height': ((parseInt(item.r) / 100) * radius) * radius,
+      'background-color': item.color,
+      'z-index': item.r + Math.random(),
+      'opacity': item.r <= 0 ? 0 : 1,
+      'border-radius': ((parseInt(item.r) / 100) * radius) * radius
+    };
+  };
+
+  var zIndex = 10;
+
+  $.each(source[1], function(idx, item) {
+
+    var className = item.title;
+
+    $('<div />', {
+      'class': className.toString().replace(/\s+/g, '-').toLowerCase() + '-bubble chart-bubble ' + item.bubblePos,
+      html: ('<div class="bubble-title" style="margin-top: -9px;' + '">' + item.title + '</div>'),
+      css: (style(idx, item)),
+      on: {
+        mouseenter: function() {
+          var zIndex = $(this).css('z-index');
+
+          $(this).css({'z-index': '500'});
+        },
+        mouseleave: function() {
+          $(this).css({'z-index': zIndex});
+        }
+      }
+    }).appendTo($chart);
+
+  });
+
+
+  function triggerColNumChange(v) {
+    $('.chart-data-value').each(function () {
+      var col = $(this).data('chart-col');
+
+      $(this).prop('Counter', $(this).text() == 0 ? 0 : $(this).text()).animate({
+        Counter: data[v][0][col]
+      }, {
+        duration: 500,
+        easing: 'swing',
+        step: function (progress) {
+          $(this).text(Math.ceil(progress));
+        }
+      });
+    });
+  } 
+
+  triggerColNumChange(4);
+
+
+  var $slider = $('#slider');
+
+  function triggerRefresh(i, responsive) {
+
+    if (responsive === true) {
+      source = responsive_data;
+    }
+
+    $chart.find('.chart-bubble').removeClass('bubble-title-right');
+
+    $.each(source[i], function(idx, item) {
+      $chart.find('.chart-bubble').eq(idx).css(style(idx, item));
+
+      if (item.bubblePos !== '') {
+        $chart.find('.chart-bubble').eq(idx).addClass(item.bubblePos);
+      }
+      $chart.find('.chart-bubble').eq(idx).find('.bubble-title').css({'opacity': item.r <= 0 ? '0' : '1'});
+    });
+  }
+
+  var slider_current_val = 4;
+
+  $slider.slider({
+    range: 'min',
+    min: 0,
+    max: 4,
+    step: 1,
+    value: 4,
+    slide: function(event, ui) {
+      triggerRefresh(ui.value);
+      triggerColNumChange(ui.value);
+      //slider_current_val = ui.value;
+    },
+    create: function(event, ui) {
+      $(this).slider('value', 4);
+      triggerRefresh(4);
+      triggerColNumChange(4);
+      //slider_current_val = 4;
+    }
+  });
+
+  $('.chart-year-options > li > a, .chart-control-ticks > li > .chart-control-tick').on('click', function(e) {
+    var index = $(this).parent().index();
+
+    $slider.slider('option', 'value', index);
+    triggerRefresh(index);
+    triggerColNumChange(index);
+
+    e.preventDefault();
+  });
+
+  window.addEventListener('resize', resizeThrottler, false);
+  window.addEventListener('load', resizeThrottler, false);
+
+  var resizeTimeout;
+  function resizeThrottler() {
+    if ( !resizeTimeout ) {
+      resizeTimeout = setTimeout(function() {
+        resizeTimeout = null;
+        resizeHandler();
+       }, 66);
+    }
+  }
+
+
+  function resizeHandler() {
+    chartWidth = window.innerWidth;
+
+    if (window.innerWidth <= 769) {
+      source = responsive_data;
+
+      chartWidth = $chart.width() + ($chart.width() / 100 * 31.25);
+      //chartHeight = '300';
+      triggerRefresh(slider_current_val, true);
+    }
+
+    if (window.innerWidth >= 769 && window.innerWidth <= 940) {
+      source = data;
+
+      //chartHeight = '360';
+      chartWidth = $chart.width() + ($chart.width() / 100 * 31.25);
+      triggerRefresh(slider_current_val);
+    }
+
+    if (window.innerWidth >= 941) {
+      source = data;
+      chartWidth = $chart.width() + ($chart.width() / 100 * 31.25);
+      triggerRefresh(slider_current_val);
+    }
+  }
+});
